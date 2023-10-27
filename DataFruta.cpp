@@ -268,32 +268,81 @@ class ListaSalarios  : public Lista {
 	vector<float> lista;
 	
 	public:
-	
 	/*
 	O m�todo abaixo pergunta ao usu�rios quantos
 	elementos v�o existir na lista e depois
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() override{
-		
+		int qtd;
+		float salario;
+		cout << "Quantos elementos existirao na lista de salarios?" << endl;
+		cin >> qtd;
+		for(int i = 0; i < qtd; i++){
+			cout << "Digite o salario "<< i+1 << ": " << endl;
+			cin >> salario;
+			lista.push_back(salario);
+		}
 	}
 			
 	void mostraMediana() override{
-		cout << "Aqui vai mostrar a mediana da lista de salarios" << endl;
+        vector <float> l = this->lista;
+        ListaSalarios::ordena(l);
+        float resultado;
+        if(l.size()%2 == 0)
+            resultado = ListaSalarios::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
+        else resultado = l[(l.size()/2)];
+		cout << "Mediana dos salarios: " << resultado << endl;
 	}
 	
 	void mostraMenor() override{
-		cout << "Aqui vai mostrar o menor dos salarios" << endl;
+        vector <float> l = this->lista;
+        ListaSalarios::ordena(l);
+		cout << "Menor salario: " << l[0] << endl;
 	}
-	void mostraMaior() override{
-		cout << "aqui vai mostrar o maior dos salarios" << endl;
-	}
-    void listarEmOrdem() override{
 
+	void mostraMaior() override{
+        vector <float> l = this->lista;
+        ListaSalarios::ordena(l);
+		cout << "Maior salario: " << l[l.size()-1] << endl;
+	}
+
+    void listarEmOrdem() override{
+        int i = 0;
+        vector <float> l = this->lista;
+        ListaSalarios::ordena(l);
+        cout << "Salarios ordenados" << endl;
+        for(auto el : l){
+            i++;
+            cout << "Salario " << i << ": " << el << endl;
+        }
     }
+
     void imprimeNElementos(int n) override{
-        
+		cout << "Imprimindo " << n <<" elementos da lista de salarios" << endl;
+        for(int i = 0; i < n; i++){
+            cout << "Salario " << i+1 << ": " << this->lista[i] << endl;
+        }
     }
+
+    static float calculaMedia(float a, float b){
+        float media;
+        media = (a+b)/2;
+        return media;
+    }
+
+	static void ordena(vector<float> &l) {
+		float aux;
+		for(int i = 0; i < int(l.size()); i++){
+			for(int j = 0; j < int(l.size()) - i - 1; j++){
+				if(l[j] > l[j+1]){
+					aux = l[j];
+					l[j] = l[j+1];
+					l[j+1] = aux;
+				}
+			}
+		}
+	}
 };
 
 class ListaIdades  : public Lista {
