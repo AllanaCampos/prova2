@@ -8,11 +8,6 @@ class Data {
 	int dia, mes, ano;
 	public:
 	
-	/*
-	O m�todo abaixo retornar� -1 se d1 � anterior a d2
-	Retornar� 0 se d1 = d2
-	Retornar� +1 se d1 � posterior a d2
-	*/	
 	static int compara(Data d1, Data d2) { 
 		return 0;
 	}
@@ -39,8 +34,8 @@ class Lista {
 	virtual void mostraMediana() = 0;
 	virtual void mostraMenor() = 0;
 	virtual void mostraMaior() = 0;
-    virtual void listarEmOrdem() = 0;
-    virtual void imprimeNElementos(int n) = 0;
+  virtual void listarEmOrdem() = 0;
+  virtual void imprimeNElementos(int n) = 0;
 };
 
 class ListaNomes : public Lista {
@@ -48,11 +43,6 @@ class ListaNomes : public Lista {
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() override {
 		int qtd;
 		string valor;
@@ -88,23 +78,23 @@ class ListaNomes : public Lista {
 		cout << "Ultim nome: " << l[l.size()-1] << endl;
 	}
 
-    void listarEmOrdem() override{
-        int i = 0;
-        vector <string> l = this->lista;
-        ListaNomes::ordena(l);
-        cout << "Nomes ordenados" << endl;
-        for(auto el : l){
-            i++;
-            cout << "Nome " << i << ": " << el << endl;
-        }
-    }
+  void listarEmOrdem() override{
+      int i = 0;
+      vector <string> l = this->lista;
+      ListaNomes::ordena(l);
+      cout << "Nomes ordenados" << endl;
+      for(auto el : l){
+          i++;
+          cout << "Nome " << i << ": " << el << endl;
+      }
+  }
 
-    void imprimeNElementos(int n) override{
-		cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
-        for(int i = 0; i < n; i++){
-            cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
-        }
-    }
+  void imprimeNElementos(int n) override{
+  cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
+      for(int i = 0; i < n; i++){
+          cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
+      }
+  }
 
 	static void ordena(vector<string> &l){
 		string aux, s1, s2;
@@ -150,7 +140,7 @@ class ListaNomes : public Lista {
 			}
 			return 1;
 		}
-	}
+
 };
 
 class ListaDatas : public Lista {
@@ -158,11 +148,6 @@ class ListaDatas : public Lista {
 	
 	public:
 		
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() override{
 		
 	}
@@ -190,11 +175,6 @@ class ListaSalarios  : public Lista {
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() override{
 		
 	}
@@ -222,11 +202,6 @@ class ListaIdades  : public Lista {
 	
 	public:
 		
-		/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() override{
 		
 	}
