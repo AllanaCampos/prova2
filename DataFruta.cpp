@@ -188,7 +188,11 @@ class ListaNomes : public Lista{
 	}
 };
 
+<<<<<<< HEAD
 class ListaDatas  : public Lista{
+=======
+class ListaDatas : public Lista {
+>>>>>>> 8767f12780e747913b4aa885c550c1c80ff977fd
 	vector<Data *> lista;
 	
 	public:
