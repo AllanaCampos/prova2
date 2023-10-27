@@ -9,9 +9,9 @@ class Data {
 	public:
 	
 	/*
-	O método abaixo retornará -1 se d1 é anterior a d2
-	Retornará 0 se d1 = d2
-	Retornará +1 se d1 é posterior a d2
+	O mï¿½todo abaixo retornarï¿½ -1 se d1 ï¿½ anterior a d2
+	Retornarï¿½ 0 se d1 = d2
+	Retornarï¿½ +1 se d1 ï¿½ posterior a d2
 	*/	
 	static int compara(Data d1, Data d2) { 
 		return 0;
@@ -35,115 +35,218 @@ class Data {
 
 class Lista {
 	public:
-	virtual void entradaDeDados() =0;
-	virtual void mostraMediana() =0;
-	virtual void mostraMenor() =0;
-	virtual void mostraMaior() =0;
+	virtual void entradaDeDados() = 0;
+	virtual void mostraMediana() = 0;
+	virtual void mostraMenor() = 0;
+	virtual void mostraMaior() = 0;
+    virtual void listarEmOrdem() = 0;
+    virtual void imprimeNElementos(int n) = 0;
 };
 
-class ListaNomes {
+class ListaNomes : public Lista {
 	vector<string> lista;
 	
 	public:
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
-	void entradaDeDados() {
-		lista.push_back("Teste");
+	void entradaDeDados() override {
+		int qtd;
+		string valor;
+		cout << "Quantos elementos existirao na lista de nomes?" << endl;
+		cin >> qtd;
+        cin.ignore();
+		for(int i = 0; i < qtd; i++){
+			cout << "Digite o nome "<< i+1 << ": " << endl;
+			getline(cin >> ws, valor);
+			lista.push_back(valor);
+		}
 	}
 		
-	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de strings" << endl;
+	void mostraMediana() override{
+        vector <string> l = this->lista;
+        ListaNomes::ordena(l);
+        int pos;
+        if(l.size()%2 == 0)
+            pos = (l.size()/2) - 1;
+        else pos = (l.size()/2);
+		cout << "Mediana dos nomes: " << l[pos] << endl;
 	}
 	
-	void mostraMenor() {
-		cout << "Aqui vai mostrar o primeiro nome alfabeticamente" << endl;
+	void mostraMenor() override{
+        vector <string> l = this->lista;
+        ListaNomes::ordena(l);
+		cout << "Primeiro nome: " << l[0] << endl;
 	}
-	void mostraMaior() {
-		cout << "aqui vai mostrar o ultimo nome alfabeticamente" << endl;
+
+	void mostraMaior() override{
+        vector <string> l = this->lista;
+        ListaNomes::ordena(l);
+		cout << "Ultim nome: " << l[l.size()-1] << endl;
+	}
+
+    void listarEmOrdem() override{
+        int i = 0;
+        vector <string> l = this->lista;
+        ListaNomes::ordena(l);
+        cout << "Nomes ordenados" << endl;
+        for(auto el : l){
+            i++;
+            cout << "Nome " << i << ": " << el << endl;
+        }
+    }
+
+    void imprimeNElementos(int n) override{
+		cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
+        for(int i = 0; i < n; i++){
+            cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
+        }
+    }
+
+	static void ordena(vector<string> &l){
+		string aux, s1, s2;
+		for(int i = 0; i < int(l.size()); i++){
+			for(int j = 0; j < int(l.size()) - i - 1; j++){
+				s1 = l[j];
+				s2 = l[j+1];
+				if(ListaNomes::comparaString(s1, s2) == 1){
+					aux = l[j];
+					l[j] = l[j+1];
+					l[j+1] = aux;
+				}
+			}
+		}
+	}
+
+	static int comparaString(string s1, string s2){
+		int i = 0;
+		if(s1.size() < s2.size()){
+			for(char c : s1){
+				if(c > s2[i]){
+					return 1;
+				}
+				if(c < s2[i]){
+					return -1;
+				}
+				i++;
+			}
+			return -1;
+		}
+		else{
+			for(char c : s2){
+				if(c > s1[i]){
+					return -1;
+				}
+				if(c < s1[i]){
+					return 1;
+				}
+				i++;
+			}
+			if(s1.size() == s2.size()){
+				return 0;
+			}
+			return 1;
+		}
 	}
 };
 
-class ListaDatas  {
+class ListaDatas : public Lista {
 	vector<Data> lista;
 	
 	public:
 		
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
-	void entradaDeDados() {
+	void entradaDeDados() override{
 		
 	}
 	
-	void mostraMediana() {
+	void mostraMediana() override{
 		cout << "Aqui vai mostrar a mediana da lista de datas" << endl;
 	}
 	
-	void mostraMenor() {
+	void mostraMenor() override{
 		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
 	}
-	void mostraMaior() {
+	void mostraMaior() override{
 		cout << "aqui vai mostrar a ultima data cronologicamente" << endl;
 	}
+    void listarEmOrdem() override{
+
+    }
+    void imprimeNElementos(int n) override{
+        
+    }
 };
 
-class ListaSalarios  {
+class ListaSalarios  : public Lista {
 	vector<float> lista;
 	
 	public:
 	
 	/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
-	void entradaDeDados() {
+	void entradaDeDados() override{
 		
 	}
 			
-	void mostraMediana() {
+	void mostraMediana() override{
 		cout << "Aqui vai mostrar a mediana da lista de salarios" << endl;
 	}
 	
-	void mostraMenor() {
+	void mostraMenor() override{
 		cout << "Aqui vai mostrar o menor dos salarios" << endl;
 	}
-	void mostraMaior() {
+	void mostraMaior() override{
 		cout << "aqui vai mostrar o maior dos salarios" << endl;
 	}
+    void listarEmOrdem() override{
+
+    }
+    void imprimeNElementos(int n) override{
+        
+    }
 };
 
-
-class ListaIdades  {
+class ListaIdades  : public Lista {
 	vector<int> lista;
 	
 	public:
 		
 		/*
-	O método abaixo pergunta ao usuários quantos
-	elementos vão existir na lista e depois
-	solicita a digitação de cada um deles
+	O mï¿½todo abaixo pergunta ao usuï¿½rios quantos
+	elementos vï¿½o existir na lista e depois
+	solicita a digitaï¿½ï¿½o de cada um deles
 	*/	
-	void entradaDeDados() {
+	void entradaDeDados() override{
 		
 	}
 	
-	void mostraMediana() {
+	void mostraMediana() override{
 		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
 	}
 	
-	void mostraMenor() {
+	void mostraMenor() override{
 		cout << "Aqui vai mostrar a menor das idades" << endl;
 	}
-	void mostraMaior() {
+	void mostraMaior() override{
 		cout << "aqui vai mostrar a maior das idades" << endl;
 	}
+    void listarEmOrdem() override{
+
+    }
+    void imprimeNElementos(int n) override{
+        
+    }
 };
  
 int main () {
@@ -172,5 +275,3 @@ int main () {
 	}
 	
 }
-    
-
