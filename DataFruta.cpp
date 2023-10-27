@@ -356,24 +356,73 @@ class ListaIdades  : public Lista {
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() override{
-		
+		int qtd;
+		int idade;
+		cout << "Quantos elementos existirao na lista de idades?" << endl;
+		cin >> qtd;
+		for(int i = 0; i < qtd; i++){
+			cout << "Digite a idade "<< i+1 << ": " << endl;
+			cin >> idade;
+			lista.push_back(idade);
+		}
 	}
 	
 	void mostraMediana() override{
-		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
+        float resultado;
+        vector <int> l = this->lista;
+        ListaIdades::ordena(l);
+        if(l.size()%2 == 0)
+            resultado = ListaIdades::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
+        else resultado = l[(l.size()/2)];
+		cout << "Mediana das idades: " << resultado << endl;
 	}
 	
 	void mostraMenor() override{
-		cout << "Aqui vai mostrar a menor das idades" << endl;
+        vector <int> l = this->lista;
+        ListaIdades::ordena(l);
+		cout << "Menor idade: " << l[0] << endl;
 	}
 	void mostraMaior() override{
-		cout << "aqui vai mostrar a maior das idades" << endl;
+        vector <int> l = this->lista;
+        ListaIdades::ordena(l);
+		cout << "Maior idade: " << l[l.size()-1] << endl;
 	}
-    void listarEmOrdem() override{
 
-    }
+    void listarEmOrdem() override{
+        int i = 0;
+        vector <int> l = this->lista;
+        ListaIdades::ordena(l);
+        cout << "Idades ordenadas" << endl;
+        for(auto el : l){
+            i++;
+            cout << "Idade " << i << ": " << el << endl;
+        }
+    } 
+
     void imprimeNElementos(int n) override{
-        
+		cout << "Imprimindo " << n <<" elementos da lista de idades" << endl;
+        for(int i = 0; i < n; i++){
+            cout << "Idade " << i+1 << ": " << this->lista[i] << endl;
+        }
+    }
+
+	static void ordena(vector<int> &l) {
+		int aux;
+		for(int i = 0; i < int(l.size()); i++){
+			for(int j = 0; j < int(l.size()) - i - 1; j++){
+				if(l[j] > l[j+1]){
+					aux = l[j];
+					l[j] = l[j+1];
+					l[j+1] = aux;
+				}
+			}
+		}
+	}
+
+    static float calculaMedia(int a, int b){
+        float media;
+        media = (a+b)/2;
+        return media;
     }
 };
  
