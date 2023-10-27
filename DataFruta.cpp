@@ -74,8 +74,8 @@ class Lista {
 	virtual void mostraMediana() = 0;
 	virtual void mostraMenor() = 0;
 	virtual void mostraMaior() = 0;
-    virtual void listarEmOrdem() = 0;
-    virtual void imprimeNElementos(int n) = 0;
+    	virtual void listarEmOrdem() = 0;
+    	virtual void imprimeNElementos(int n) = 0;
 };
 
 class ListaNomes : public Lista{
@@ -102,44 +102,44 @@ class ListaNomes : public Lista{
 	}
 		
 	void mostraMediana() override{
-        vector <string> l = this->lista;
-        ListaNomes::ordena(l);
-        int pos;
-        if(l.size()%2 == 0)
-            pos = (l.size()/2) - 1;
-        else pos = (l.size()/2);
-		cout << "Mediana dos nomes: " << l[pos] << endl;
+	        vector <string> l = this->lista;
+	        ListaNomes::ordena(l);
+	        int pos;
+	        if(l.size()%2 == 0)
+	            pos = (l.size()/2) - 1;
+	        else pos = (l.size()/2);
+			cout << "Mediana dos nomes: " << l[pos] << endl;
 	}
 	
 	void mostraMenor() override{
-        vector <string> l = this->lista;
-        ListaNomes::ordena(l);
+	        vector <string> l = this->lista;
+	        ListaNomes::ordena(l);
 		cout << "Primeiro nome: " << l[0] << endl;
 	}
 
 	void mostraMaior() override{
-        vector <string> l = this->lista;
-        ListaNomes::ordena(l);
-		cout << "Ultim nome: " << l[l.size()-1] << endl;
+	        vector <string> l = this->lista;
+	        ListaNomes::ordena(l);
+			cout << "Ultim nome: " << l[l.size()-1] << endl;
 	}
 
-    void listarEmOrdem() override{
-        int i = 0;
-        vector <string> l = this->lista;
-        ListaNomes::ordena(l);
-        cout << "Nomes ordenados" << endl;
-        for(auto el : l){
-            i++;
-            cout << "Nome " << i << ": " << el << endl;
-        }
-    }
+    	void listarEmOrdem() override{
+		int i = 0;
+		vector <string> l = this->lista;
+		ListaNomes::ordena(l);
+		cout << "Nomes ordenados" << endl;
+		for(auto el : l){
+	    		i++;
+	    		cout << "Nome " << i << ": " << el << endl;
+		}
+    	}
 
-    void imprimeNElementos(int n) override{
+    	void imprimeNElementos(int n) override{
 		cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
-        for(int i = 0; i < n; i++){
-            cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
-        }
-    }
+        	for(int i = 0; i < n; i++){
+	            	cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
+        	}
+    	}
 
 	static void ordena(vector<string> &l){
 		string aux, s1, s2;
@@ -188,11 +188,9 @@ class ListaNomes : public Lista{
 	}
 };
 
-<<<<<<< HEAD
 class ListaDatas  : public Lista{
-=======
+
 class ListaDatas : public Lista {
->>>>>>> 8767f12780e747913b4aa885c550c1c80ff977fd
 	vector<Data *> lista;
 	
 	public:
@@ -215,44 +213,44 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMediana() override{
-        int pos;
-        vector <Data *> l = this->lista;
-        ListaDatas::ordena(l);
-        if(l.size()%2 == 0)
-            pos = (l.size()/2) - 1;
-        else pos = (l.size()/2);
-		cout << "Mediana das datas: " << l[pos]->toString() << endl;
+        	int pos;
+	        vector <Data *> l = this->lista;
+	        ListaDatas::ordena(l);
+	        if(l.size()%2 == 0)
+	            pos = (l.size()/2) - 1;
+	        else pos = (l.size()/2);
+			cout << "Mediana das datas: " << l[pos]->toString() << endl;
 	}
 	
 	void mostraMenor() override{
-        vector <Data *> l = this->lista;
-        ListaDatas::ordena(l);
+	        vector <Data *> l = this->lista;
+	        ListaDatas::ordena(l);
 		cout << "Primeira data: " << l[0]->toString() << endl;
 	}
 
 	void mostraMaior() override{
-        vector <Data *> l = this->lista;
-        ListaDatas::ordena(l);
+	        vector <Data *> l = this->lista;
+	        ListaDatas::ordena(l);
 		cout << "Ultima data: " << l[l.size()-1]->toString() << endl;
 	}
 
-    void listarEmOrdem() override{
-        int i = 0;
-        vector <Data *> l = this->lista;
-        ListaDatas::ordena(l);
-        cout << "Datas ordenados" << endl;
-        for(auto el : l){
-            i++;
-            cout << "Data " << i << ": " << el->toString() << endl;
-        }
-    }
+    	void listarEmOrdem() override{
+	        int i = 0;
+	        vector <Data *> l = this->lista;
+	        ListaDatas::ordena(l);
+	        cout << "Datas ordenados" << endl;
+	        for(auto el : l){
+	            i++;
+	            cout << "Data " << i << ": " << el->toString() << endl;
+	        }
+	    }
 
-    void imprimeNElementos(int n) override{
+   	void imprimeNElementos(int n) override{
 		cout << "Imprimindo " << n <<" elementos da lista de datas" << endl;
-        for(int i = 0; i < n; i++){
-            cout << "Data " << i+1 << ": " << this->lista[i]->toString() << endl;
-        }
-    }
+	        for(int i = 0; i < n; i++){
+	            cout << "Data " << i+1 << ": " << this->lista[i]->toString() << endl;
+	        }
+	    }
 
 	static void ordena(vector <Data *> &l) {
 		Data *aux;
@@ -290,50 +288,50 @@ class ListaSalarios : public Lista {
 	}
 			
 	void mostraMediana() override{
-        vector <float> l = this->lista;
-        ListaSalarios::ordena(l);
-        float resultado;
-        if(l.size()%2 == 0)
-            resultado = ListaSalarios::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
-        else resultado = l[(l.size()/2)];
-		cout << "Mediana dos salarios: " << resultado << endl;
+	        vector <float> l = this->lista;
+	        ListaSalarios::ordena(l);
+	        float resultado;
+	        if(l.size()%2 == 0)
+	            resultado = ListaSalarios::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
+	        else resultado = l[(l.size()/2)];
+			cout << "Mediana dos salarios: " << resultado << endl;
 	}
 	
 	void mostraMenor() override{
-        vector <float> l = this->lista;
-        ListaSalarios::ordena(l);
+	        vector <float> l = this->lista;
+	        ListaSalarios::ordena(l);
 		cout << "Menor salario: " << l[0] << endl;
 	}
 
 	void mostraMaior() override{
-        vector <float> l = this->lista;
-        ListaSalarios::ordena(l);
+	        vector <float> l = this->lista;
+	        ListaSalarios::ordena(l);
 		cout << "Maior salario: " << l[l.size()-1] << endl;
 	}
 
-    void listarEmOrdem() override{
-        int i = 0;
-        vector <float> l = this->lista;
-        ListaSalarios::ordena(l);
-        cout << "Salarios ordenados" << endl;
-        for(auto el : l){
-            i++;
-            cout << "Salario " << i << ": " << el << endl;
-        }
-    }
+    	void listarEmOrdem() override{
+	        int i = 0;
+	        vector <float> l = this->lista;
+	        ListaSalarios::ordena(l);
+	        cout << "Salarios ordenados" << endl;
+	        for(auto el : l){
+	            i++;
+	            cout << "Salario " << i << ": " << el << endl;
+	        }
+    	}
 
-    void imprimeNElementos(int n) override{
+	void imprimeNElementos(int n) override{
 		cout << "Imprimindo " << n <<" elementos da lista de salarios" << endl;
-        for(int i = 0; i < n; i++){
-            cout << "Salario " << i+1 << ": " << this->lista[i] << endl;
-        }
-    }
+	        for(int i = 0; i < n; i++){
+	            cout << "Salario " << i+1 << ": " << this->lista[i] << endl;
+	        }
+    	}
 
-    static float calculaMedia(float a, float b){
-        float media;
-        media = (a+b)/2;
-        return media;
-    }
+    	static float calculaMedia(float a, float b){
+	        float media;
+	        media = (a+b)/2;
+	        return media;
+	}
 
 	static void ordena(vector<float> &l) {
 		float aux;
@@ -372,43 +370,43 @@ class ListaIdades : public Lista {
 	}
 	
 	void mostraMediana() override{
-        float resultado;
-        vector <int> l = this->lista;
-        ListaIdades::ordena(l);
-        if(l.size()%2 == 0)
-            resultado = ListaIdades::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
-        else resultado = l[(l.size()/2)];
-		cout << "Mediana das idades: " << resultado << endl;
+	        float resultado;
+	        vector <int> l = this->lista;
+	        ListaIdades::ordena(l);
+	        if(l.size()%2 == 0)
+	            resultado = ListaIdades::calculaMedia(l[(l.size()/2)-1], l[(l.size()/2)]);
+	        else resultado = l[(l.size()/2)];
+			cout << "Mediana das idades: " << resultado << endl;
 	}
 	
 	void mostraMenor() override{
-        vector <int> l = this->lista;
-        ListaIdades::ordena(l);
+	        vector <int> l = this->lista;
+	        ListaIdades::ordena(l);
 		cout << "Menor idade: " << l[0] << endl;
 	}
 	void mostraMaior() override{
-        vector <int> l = this->lista;
-        ListaIdades::ordena(l);
+	        vector <int> l = this->lista;
+	        ListaIdades::ordena(l);
 		cout << "Maior idade: " << l[l.size()-1] << endl;
 	}
 
-    void listarEmOrdem() override{
-        int i = 0;
-        vector <int> l = this->lista;
-        ListaIdades::ordena(l);
-        cout << "Idades ordenadas" << endl;
-        for(auto el : l){
-            i++;
-            cout << "Idade " << i << ": " << el << endl;
-        }
-    } 
+    	void listarEmOrdem() override{
+	        int i = 0;
+	        vector <int> l = this->lista;
+	        ListaIdades::ordena(l);
+	        cout << "Idades ordenadas" << endl;
+	        for(auto el : l){
+	            i++;
+	            cout << "Idade " << i << ": " << el << endl;
+	        }
+    	} 
 
-    void imprimeNElementos(int n) override{
+    	void imprimeNElementos(int n) override{
 		cout << "Imprimindo " << n <<" elementos da lista de idades" << endl;
-        for(int i = 0; i < n; i++){
-            cout << "Idade " << i+1 << ": " << this->lista[i] << endl;
-        }
-    }
+	        for(int i = 0; i < n; i++){
+	            cout << "Idade " << i+1 << ": " << this->lista[i] << endl;
+	        }
+	}
 
 	static void ordena(vector<int> &l) {
 		int aux;
@@ -423,11 +421,11 @@ class ListaIdades : public Lista {
 		}
 	}
 
-    static float calculaMedia(int a, int b){
-        float media;
-        media = (a+b)/2;
-        return media;
-    }
+    	static float calculaMedia(int a, int b){
+	        float media;
+	        media = (a+b)/2;
+	        return media;
+	}
 };
  
 int main () {
