@@ -188,8 +188,6 @@ class ListaNomes : public Lista{
 	}
 };
 
-class ListaDatas  : public Lista{
-
 class ListaDatas : public Lista {
 	vector<Data *> lista;
 	
