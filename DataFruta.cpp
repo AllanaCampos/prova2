@@ -78,7 +78,7 @@ class Lista {
     virtual void imprimeNElementos(int n) = 0;
 };
 
-class ListaNomes : public Lista {
+class ListaNomes : public Lista{
 	vector<string> lista;
 	
 	public:
@@ -188,7 +188,11 @@ class ListaNomes : public Lista {
 	}
 };
 
+<<<<<<< HEAD
+class ListaDatas  : public Lista{
+=======
 class ListaDatas : public Lista {
+>>>>>>> 8767f12780e747913b4aa885c550c1c80ff977fd
 	vector<Data *> lista;
 	
 	public:
@@ -264,7 +268,7 @@ class ListaDatas : public Lista {
 	}
 };
 
-class ListaSalarios  : public Lista {
+class ListaSalarios : public Lista {
 	vector<float> lista;
 	
 	public:
@@ -345,7 +349,7 @@ class ListaSalarios  : public Lista {
 	}
 };
 
-class ListaIdades  : public Lista {
+class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
@@ -449,6 +453,8 @@ int main () {
 		l->mostraMediana();
 		l->mostraMenor();
 		l->mostraMaior();
+		l->listarEmOrdem();
+		l->imprimeNElementos(2);
 	}
 	
 }
