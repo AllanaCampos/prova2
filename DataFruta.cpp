@@ -7,9 +7,48 @@ using namespace std;
 class Data {
 	int dia, mes, ano;
 	public:
-	
-	static int compara(Data d1, Data d2) { 
-		return 0;
+
+	int getDia(){
+		return  this->dia;
+	}
+	int getMes(){
+		return this->mes;
+	}
+	int getAno(){
+		return this->ano;
+	}
+	/*
+	O m�todo abaixo retornar� -1 se d1 � anterior a d2
+	Retornar� 0 se d1 = d2
+	Retornar� +1 se d1 � posterior a d2
+	*/	
+	static int compara(Data *d1, Data *d2) { 
+		if(d1->getAno() < d2->getAno()){
+			return -1;
+		}
+		if(d1->getAno() > d2->getAno()){
+			return 1;
+		}
+		if(d1->getAno() == d2->getAno()){
+			if(d1->getMes() < d2->getMes()){
+				return -1;
+			}
+			if(d1->getMes() > d2->getMes()){
+				return 1;
+			}
+			if(d1->getMes() == d2->getMes()){
+				if(d1->getDia() < d2->getDia()){
+					return -1;
+				}
+				if(d1->getDia() > d2->getDia()){
+					return 1;
+				}
+				if(d1->getDia() == d2->getDia()){
+					return 0;
+				}
+			}
+		}
+		return 2;
 	}
 	
 	Data (int _dia, int _mes, int _ano) {
@@ -17,6 +56,7 @@ class Data {
 		mes = _mes;
 		ano = _ano;
 	}
+	
 	string toString() {
 		string ret = "";
 		ret.append(to_string(dia));
@@ -34,8 +74,8 @@ class Lista {
 	virtual void mostraMediana() = 0;
 	virtual void mostraMenor() = 0;
 	virtual void mostraMaior() = 0;
-  virtual void listarEmOrdem() = 0;
-  virtual void imprimeNElementos(int n) = 0;
+    virtual void listarEmOrdem() = 0;
+    virtual void imprimeNElementos(int n) = 0;
 };
 
 class ListaNomes : public Lista {
@@ -43,6 +83,11 @@ class ListaNomes : public Lista {
 	
 	public:
 	
+	/*
+	O m�todo abaixo pergunta ao usu�rios quantos
+	elementos v�o existir na lista e depois
+	solicita a digita��o de cada um deles
+	*/	
 	void entradaDeDados() override {
 		int qtd;
 		string valor;
@@ -78,23 +123,23 @@ class ListaNomes : public Lista {
 		cout << "Ultim nome: " << l[l.size()-1] << endl;
 	}
 
-  void listarEmOrdem() override{
-      int i = 0;
-      vector <string> l = this->lista;
-      ListaNomes::ordena(l);
-      cout << "Nomes ordenados" << endl;
-      for(auto el : l){
-          i++;
-          cout << "Nome " << i << ": " << el << endl;
-      }
-  }
+    void listarEmOrdem() override{
+        int i = 0;
+        vector <string> l = this->lista;
+        ListaNomes::ordena(l);
+        cout << "Nomes ordenados" << endl;
+        for(auto el : l){
+            i++;
+            cout << "Nome " << i << ": " << el << endl;
+        }
+    }
 
-  void imprimeNElementos(int n) override{
-  cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
-      for(int i = 0; i < n; i++){
-          cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
-      }
-  }
+    void imprimeNElementos(int n) override{
+		cout << "Imprimindo " << n <<" elementos da lista de nomes" << endl;
+        for(int i = 0; i < n; i++){
+            cout << "Nome " << i+1 << ": " << this->lista[i] << endl;
+        }
+    }
 
 	static void ordena(vector<string> &l){
 		string aux, s1, s2;
@@ -140,34 +185,83 @@ class ListaNomes : public Lista {
 			}
 			return 1;
 		}
-
+	}
 };
 
 class ListaDatas : public Lista {
-	vector<Data> lista;
+	vector<Data *> lista;
 	
 	public:
 		
+	/*
+	O m�todo abaixo pergunta ao usu�rios quantos
+	elementos v�o existir na lista e depois
+	solicita a digita��o de cada um deles
+	*/	
 	void entradaDeDados() override{
-		
+		int qtd, dia, mes, ano;
+		cout << "Quantos elementos existirao na lista de datas?" << endl;
+		cin >> qtd;
+		for(int i = 0; i < qtd; i++){
+			cout << "Digite a data "<< i+1 << " utilizando o formato a seguir: DD MM AAAA" << endl;
+			cin >> dia >> mes >> ano;
+			Data * data = new Data(dia, mes, ano);
+			lista.push_back(data);
+		}
 	}
 	
 	void mostraMediana() override{
-		cout << "Aqui vai mostrar a mediana da lista de datas" << endl;
+        int pos;
+        vector <Data *> l = this->lista;
+        ListaDatas::ordena(l);
+        if(l.size()%2 == 0)
+            pos = (l.size()/2) - 1;
+        else pos = (l.size()/2);
+		cout << "Mediana das datas: " << l[pos]->toString() << endl;
 	}
 	
 	void mostraMenor() override{
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+        vector <Data *> l = this->lista;
+        ListaDatas::ordena(l);
+		cout << "Primeira data: " << l[0]->toString() << endl;
 	}
-	void mostraMaior() override{
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl;
-	}
-    void listarEmOrdem() override{
 
+	void mostraMaior() override{
+        vector <Data *> l = this->lista;
+        ListaDatas::ordena(l);
+		cout << "Ultima data: " << l[l.size()-1]->toString() << endl;
+	}
+
+    void listarEmOrdem() override{
+        int i = 0;
+        vector <Data *> l = this->lista;
+        ListaDatas::ordena(l);
+        cout << "Datas ordenados" << endl;
+        for(auto el : l){
+            i++;
+            cout << "Data " << i << ": " << el->toString() << endl;
+        }
     }
+
     void imprimeNElementos(int n) override{
-        
+		cout << "Imprimindo " << n <<" elementos da lista de datas" << endl;
+        for(int i = 0; i < n; i++){
+            cout << "Data " << i+1 << ": " << this->lista[i]->toString() << endl;
+        }
     }
+
+	static void ordena(vector <Data *> &l) {
+		Data *aux;
+		for(int i = 0; i < int(l.size()); i++){
+			for(int j = 0; j < int(l.size()) - i - 1; j++){
+				if(Data::compara(l[j], l[j+1]) == 1){
+					aux = l[j];
+					l[j] = l[j+1];
+					l[j+1] = aux;
+				}
+			}
+		}
+	}
 };
 
 class ListaSalarios  : public Lista {
@@ -175,6 +269,11 @@ class ListaSalarios  : public Lista {
 	
 	public:
 	
+	/*
+	O m�todo abaixo pergunta ao usu�rios quantos
+	elementos v�o existir na lista e depois
+	solicita a digita��o de cada um deles
+	*/	
 	void entradaDeDados() override{
 		
 	}
@@ -202,6 +301,11 @@ class ListaIdades  : public Lista {
 	
 	public:
 		
+		/*
+	O m�todo abaixo pergunta ao usu�rios quantos
+	elementos v�o existir na lista e depois
+	solicita a digita��o de cada um deles
+	*/	
 	void entradaDeDados() override{
 		
 	}
